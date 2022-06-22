@@ -28,7 +28,7 @@ var (
 	siyuanUserAgent  = "SiYuan/0.0.0"
 )
 
-func InitHttpClient(siyuanUA string) {
+func SetUserAgent(siyuanUA string) {
 	siyuanUserAgent = siyuanUA
 }
 
