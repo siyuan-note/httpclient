@@ -1,10 +1,10 @@
+github.com/88250/req/v3 v3.13.2 h1:bs7TcSYH8Y67mceyDXP39tmX0vJAtgMrnKCqW8nOWUs=
+github.com/88250/req/v3 v3.13.2/go.mod h1:G6fkq27P+JcTcgRVxecxY+amHN1xFl8W81eLCfJ151M=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/errwrap v1.1.0 h1:OxrOeh75EUXMY8TBjag2fzXGZ40LB6IKw45YeGUDY2I=
 github.com/hashicorp/errwrap v1.1.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/go-multierror v1.1.1 h1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+lD48awMYo=
 github.com/hashicorp/go-multierror v1.1.1/go.mod h1:iw975J/qwKPdAO1clOe2L8331t/9/fmwbPZ6JB6eMoM=
-github.com/imroc/req/v3 v3.13.1 h1:kgqEyBkuZQ4Fbv5M2sC0v6Sov9Ne4JurYmziRphvpHU=
-github.com/imroc/req/v3 v3.13.1/go.mod h1:G6fkq27P+JcTcgRVxecxY+amHN1xFl8W81eLCfJ151M=
 golang.org/x/net v0.0.0-20220111093109-d55c255bac03/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
 golang.org/x/net v0.0.0-20220621193019-9d032be2e588 h1:9ubFuySsnAJYGyJrZ3koiEv8FyqofCBdz3G9Mbf2YFc=
 golang.org/x/net v0.0.0-20220621193019-9d032be2e588/go.mod h1:XRhObCWvk6IyKnWLug+ECip1KBveYUHfp+8e9klMJ9c=

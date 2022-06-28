@@ -10,3 +10,5 @@ require (
 	golang.org/x/net v0.0.0-20220621193019-9d032be2e588 // indirect
 	golang.org/x/text v0.3.7 // indirect
 )
+
+replace github.com/imroc/req/v3 v3.13.1 => github.com/88250/req/v3 v3.13.2
