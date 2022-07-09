@@ -32,22 +32,19 @@ func SetUserAgent(siyuanUA string) {
 	siyuanUserAgent = siyuanUA
 }
 
-func NewBrowserRequest(proxyURL string) (ret *req.Request) {
+func NewBrowserRequest() (ret *req.Request) {
 	if nil == browserClient {
 		browserClient = req.C().
 			SetUserAgent(browserUserAgent).
 			SetTimeout(7 * time.Second).
 			DisableInsecureSkipVerify()
 	}
-	if "" != proxyURL {
-		browserClient.SetProxyURL(proxyURL)
-	}
 	ret = browserClient.R()
 	ret.SetRetryCount(1).SetRetryFixedInterval(3 * time.Second)
 	return
 }
 
-func NewBrowserDownloadRequest(proxyURL string) *req.Request {
+func NewBrowserDownloadRequest() *req.Request {
 	if nil == browserDownloadClient {
 		browserDownloadClient = req.C().
 			SetUserAgent(browserUserAgent).
@@ -57,13 +54,10 @@ func NewBrowserDownloadRequest(proxyURL string) *req.Request {
 			SetCommonRetryCondition(retryCondition).
 			DisableInsecureSkipVerify()
 	}
-	if "" != proxyURL {
-		browserDownloadClient.SetProxyURL(proxyURL)
-	}
 	return browserDownloadClient.R()
 }
 
-func NewCloudRequest(proxyURL string) *req.Request {
+func NewCloudRequest() *req.Request {
 	if nil == cloudAPIClient {
 		cloudAPIClient = req.C().
 			SetUserAgent(siyuanUserAgent).
@@ -73,13 +67,10 @@ func NewCloudRequest(proxyURL string) *req.Request {
 			SetCommonRetryCondition(retryCondition).
 			DisableInsecureSkipVerify()
 	}
-	if "" != proxyURL {
-		cloudAPIClient.SetProxyURL(proxyURL)
-	}
 	return cloudAPIClient.R()
 }
 
-func NewCloudFileRequest2m(proxyURL string) *req.Request {
+func NewCloudFileRequest2m() *req.Request {
 	if nil == cloudFileClientTimeout2Min {
 		cloudFileClientTimeout2Min = req.C().
 			SetUserAgent(siyuanUserAgent).
@@ -90,13 +81,10 @@ func NewCloudFileRequest2m(proxyURL string) *req.Request {
 			DisableInsecureSkipVerify()
 		setTransport(cloudFileClientTimeout2Min.GetClient())
 	}
-	if "" != proxyURL {
-		cloudFileClientTimeout2Min.SetProxyURL(proxyURL)
-	}
 	return cloudFileClientTimeout2Min.R()
 }
 
-func NewCloudFileRequest15s(proxyURL string) *req.Request {
+func NewCloudFileRequest15s() *req.Request {
 	if nil == cloudFileClientTimeout15s {
 		cloudFileClientTimeout15s = req.C().
 			SetUserAgent(siyuanUserAgent).
@@ -106,9 +94,6 @@ func NewCloudFileRequest15s(proxyURL string) *req.Request {
 			SetCommonRetryCondition(retryCondition).
 			DisableInsecureSkipVerify()
 		setTransport(cloudFileClientTimeout15s.GetClient())
-	}
-	if "" != proxyURL {
-		cloudFileClientTimeout15s.SetProxyURL(proxyURL)
 	}
 	return cloudFileClientTimeout15s.R()
 }
