@@ -17,19 +17,19 @@ package httpclient
 import (
 	"context"
 	"crypto/tls"
-	"golang.org/x/net/http/httpproxy"
 	"net"
 	"net/http"
 	"net/url"
 	"time"
 
 	"github.com/imroc/req/v3"
+	"golang.org/x/net/http/httpproxy"
 )
 
 var (
 	browserClient, cloudFileClientTimeout2Min, cloudClientTimeout30s *req.Client
 
-	browserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36"
+	browserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
 	siyuanUserAgent  = "SiYuan/0.0.0"
 )
 
