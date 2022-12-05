@@ -27,11 +27,23 @@ import (
 )
 
 var (
-	browserClient, cloudFileClientTimeout2Min, cloudClientTimeout30s *req.Client
+	browserClient, cloudClientTimeout30s, cloudFileClientTimeout2Min *req.Client
 
 	browserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
 	siyuanUserAgent  = "SiYuan/0.0.0"
 )
+
+func CloseIdleConnections() {
+	if nil != browserClient {
+		browserClient.GetClient().CloseIdleConnections()
+	}
+	if nil != cloudClientTimeout30s {
+		cloudClientTimeout30s.GetClient().CloseIdleConnections()
+	}
+	if nil != cloudFileClientTimeout2Min {
+		cloudFileClientTimeout2Min.GetClient().CloseIdleConnections()
+	}
+}
 
 func GetCloudFileClient2Min() *http.Client {
 	if nil == cloudFileClientTimeout2Min {
