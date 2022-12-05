@@ -2,7 +2,10 @@ module github.com/siyuan-note/httpclient
 
 go 1.18
 
-require github.com/imroc/req/v3 v3.26.3
+require (
+	github.com/imroc/req/v3 v3.26.4
+	golang.org/x/net v0.2.0
+)
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -19,10 +22,9 @@ require (
 	github.com/marten-seemann/qtls-go1-19 v0.1.1 // indirect
 	github.com/onsi/ginkgo/v2 v2.5.1 // indirect
 	golang.org/x/crypto v0.3.0 // indirect
-	golang.org/x/exp v0.0.0-20221126150942-6ab00d035af9 // indirect
+	golang.org/x/exp v0.0.0-20221204150635-6dcec336b2bb // indirect
 	golang.org/x/mod v0.7.0 // indirect
-	golang.org/x/net v0.2.0 // indirect
-	golang.org/x/sys v0.2.0 // indirect
-	golang.org/x/text v0.4.0 // indirect
+	golang.org/x/sys v0.3.0 // indirect
+	golang.org/x/text v0.5.0 // indirect
 	golang.org/x/tools v0.3.0 // indirect
 )

@@ -15,18 +15,30 @@
 package httpclient
 
 import (
+	"context"
+	"crypto/tls"
+	"golang.org/x/net/http/httpproxy"
+	"net"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/imroc/req/v3"
 )
 
 var (
-	browserClient, browserDownloadClient, cloudAPIClient, cloudFileClientTimeout2Min, cloudFileClientTimeout15s *req.Client
+	browserClient, cloudFileClientTimeout2Min, cloudClientTimeout30s *req.Client
 
 	browserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36"
 	siyuanUserAgent  = "SiYuan/0.0.0"
 )
+
+func GetCloudFileClient2Min() *http.Client {
+	if nil == cloudFileClientTimeout2Min {
+		newCloudFileClient2m()
+	}
+	return cloudFileClientTimeout2Min.GetClient()
+}
 
 func SetUserAgent(siyuanUA string) {
 	siyuanUserAgent = siyuanUA
@@ -36,66 +48,45 @@ func NewBrowserRequest() (ret *req.Request) {
 	if nil == browserClient {
 		browserClient = req.C().
 			SetUserAgent(browserUserAgent).
-			SetTimeout(7 * time.Second).
+			SetTimeout(30 * time.Second).
 			DisableInsecureSkipVerify()
+		browserClient.GetClient().Transport = NewTransport(false)
 	}
 	ret = browserClient.R()
 	ret.SetRetryCount(1).SetRetryFixedInterval(3 * time.Second)
 	return
 }
 
-func NewBrowserDownloadRequest() *req.Request {
-	if nil == browserDownloadClient {
-		browserDownloadClient = req.C().
-			SetUserAgent(browserUserAgent).
-			SetTimeout(2 * time.Minute).
-			SetCommonRetryCount(1).
-			SetCommonRetryFixedInterval(3 * time.Second).
-			SetCommonRetryCondition(retryCondition).
-			DisableInsecureSkipVerify()
-	}
-	return browserDownloadClient.R()
-}
-
-func NewCloudRequest() *req.Request {
-	if nil == cloudAPIClient {
-		cloudAPIClient = req.C().
-			SetUserAgent(siyuanUserAgent).
-			SetTimeout(7 * time.Second).
-			SetCommonRetryCount(1).
-			SetCommonRetryFixedInterval(3 * time.Second).
-			SetCommonRetryCondition(retryCondition).
-			DisableInsecureSkipVerify()
-	}
-	return cloudAPIClient.R()
-}
-
 func NewCloudFileRequest2m() *req.Request {
 	if nil == cloudFileClientTimeout2Min {
-		cloudFileClientTimeout2Min = req.C().
-			SetUserAgent(siyuanUserAgent).
-			SetTimeout(2 * time.Minute).
-			SetCommonRetryCount(1).
-			SetCommonRetryFixedInterval(3 * time.Second).
-			SetCommonRetryCondition(retryCondition).
-			DisableInsecureSkipVerify()
-		setTransport(cloudFileClientTimeout2Min.GetClient())
+		newCloudFileClient2m()
 	}
 	return cloudFileClientTimeout2Min.R()
 }
 
-func NewCloudFileRequest15s() *req.Request {
-	if nil == cloudFileClientTimeout15s {
-		cloudFileClientTimeout15s = req.C().
+func newCloudFileClient2m() {
+	cloudFileClientTimeout2Min = req.C().
+		SetUserAgent(siyuanUserAgent).
+		SetTimeout(2 * time.Minute).
+		SetCommonRetryCount(1).
+		SetCommonRetryFixedInterval(3 * time.Second).
+		SetCommonRetryCondition(retryCondition).
+		DisableInsecureSkipVerify()
+	cloudFileClientTimeout2Min.GetClient().Transport = NewTransport(false)
+}
+
+func NewCloudRequest30s() *req.Request {
+	if nil == cloudClientTimeout30s {
+		cloudClientTimeout30s = req.C().
 			SetUserAgent(siyuanUserAgent).
-			SetTimeout(15 * time.Second).
+			SetTimeout(30 * time.Second).
 			SetCommonRetryCount(1).
 			SetCommonRetryFixedInterval(3 * time.Second).
 			SetCommonRetryCondition(retryCondition).
 			DisableInsecureSkipVerify()
-		setTransport(cloudFileClientTimeout15s.GetClient())
+		cloudClientTimeout30s.GetClient().Transport = NewTransport(false)
 	}
-	return cloudFileClientTimeout15s.R()
+	return cloudClientTimeout30s.R()
 }
 
 func retryCondition(resp *req.Response, err error) bool {
@@ -108,10 +99,29 @@ func retryCondition(resp *req.Response, err error) bool {
 	return false
 }
 
-func setTransport(client *http.Client) {
-	// 改进同步下载数据稳定性 https://github.com/siyuan-note/siyuan/issues/4994
-	transport := client.Transport.(*req.Transport)
-	transport.MaxIdleConns = 10
-	transport.MaxIdleConnsPerHost = 2
-	transport.MaxConnsPerHost = 2
+func NewTransport(skipTlsVerify bool) *http.Transport {
+	return &http.Transport{
+		Proxy: ProxyFromEnvironment,
+		DialContext: defaultTransportDialContext(&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}),
+		ForceAttemptHTTP2:     true,
+		MaxIdleConns:          10,
+		MaxIdleConnsPerHost:   2,
+		MaxConnsPerHost:       2,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   7 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		TLSClientConfig:       &tls.Config{InsecureSkipVerify: skipTlsVerify}}
+}
+
+func defaultTransportDialContext(dialer *net.Dialer) func(context.Context, string, string) (net.Conn, error) {
+	return dialer.DialContext
+}
+
+func ProxyFromEnvironment(req *http.Request) (*url.URL, error) {
+	// 因为 http.ProxyFromEnvironment 为了优化性能所以会缓存结果
+	// 这里需要每次都重新从环境变量获取，以便实现不重启就能切换代理
+	return httpproxy.FromEnvironment().ProxyFunc()(req.URL)
 }
