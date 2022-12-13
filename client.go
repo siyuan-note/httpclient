@@ -61,8 +61,8 @@ func NewBrowserRequest() (ret *req.Request) {
 		browserClient = req.C().
 			SetUserAgent(browserUserAgent).
 			SetTimeout(30 * time.Second).
-			DisableInsecureSkipVerify()
-		browserClient.GetClient().Transport = NewTransport(false)
+			DisableInsecureSkipVerify().
+			SetProxy(ProxyFromEnvironment)
 	}
 	ret = browserClient.R()
 	ret.SetRetryCount(1).SetRetryFixedInterval(3 * time.Second)
@@ -83,8 +83,8 @@ func newCloudFileClient2m() {
 		SetCommonRetryCount(1).
 		SetCommonRetryFixedInterval(3 * time.Second).
 		SetCommonRetryCondition(retryCondition).
-		DisableInsecureSkipVerify()
-	cloudFileClientTimeout2Min.GetClient().Transport = NewTransport(false)
+		DisableInsecureSkipVerify().
+		SetProxy(ProxyFromEnvironment)
 }
 
 func NewCloudRequest30s() *req.Request {
@@ -95,8 +95,8 @@ func NewCloudRequest30s() *req.Request {
 			SetCommonRetryCount(1).
 			SetCommonRetryFixedInterval(3 * time.Second).
 			SetCommonRetryCondition(retryCondition).
-			DisableInsecureSkipVerify()
-		cloudClientTimeout30s.GetClient().Transport = NewTransport(false)
+			DisableInsecureSkipVerify().
+			SetProxy(ProxyFromEnvironment)
 	}
 	return cloudClientTimeout30s.R()
 }
