@@ -78,6 +78,7 @@ func NewCloudFileRequest2m() *req.Request {
 
 func newCloudFileClient2m() {
 	cloudFileClientTimeout2Min = req.C().
+		EnableForceHTTP1(). // 强制使用 HTTP/1.1，避免有些服务器并发请求时报错 https://github.com/siyuan-note/siyuan/issues/6948
 		SetUserAgent(siyuanUserAgent).
 		SetTimeout(2 * time.Minute).
 		SetCommonRetryCount(1).
