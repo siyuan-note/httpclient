@@ -3,7 +3,7 @@ module github.com/siyuan-note/httpclient
 go 1.18
 
 require (
-	github.com/imroc/req/v3 v3.26.6
+	github.com/imroc/req/v3 v3.27.0
 	golang.org/x/net v0.5.0
 )
 
@@ -22,7 +22,7 @@ require (
 	github.com/marten-seemann/qtls-go1-19 v0.1.2 // indirect
 	github.com/onsi/ginkgo/v2 v2.6.1 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/exp v0.0.0-20230105000112-eab7a2c85304 // indirect
+	golang.org/x/exp v0.0.0-20230105202349-8879d0199aa3 // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
