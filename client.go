@@ -106,10 +106,7 @@ func retryCondition(resp *req.Response, err error) bool {
 	if nil != err {
 		return true
 	}
-	if nil == resp {
-		return true
-	}
-	if 503 == resp.StatusCode { // 负载均衡会返回 503，需要重试
+	if nil == resp || 503 == resp.StatusCode { // 负载均衡会返回 503，需要重试
 		return true
 	}
 	return false
