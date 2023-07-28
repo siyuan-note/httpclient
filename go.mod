@@ -3,7 +3,7 @@ module github.com/siyuan-note/httpclient
 go 1.18
 
 require (
-	github.com/imroc/req/v3 v3.37.2
+	github.com/imroc/req/v3 v3.38.0
 	golang.org/x/net v0.12.0
 )
 
