@@ -3,7 +3,7 @@ module github.com/siyuan-note/httpclient
 go 1.18
 
 require (
-	github.com/imroc/req/v3 v3.41.11
+	github.com/imroc/req/v3 v3.41.12
 	golang.org/x/net v0.15.0
 )
 
@@ -13,7 +13,7 @@ require (
 	github.com/gaukas/godicttls v0.0.4 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/golang/mock v1.6.0 // indirect
-	github.com/google/pprof v0.0.0-20230906154834-20cde9067b3b // indirect
+	github.com/google/pprof v0.0.0-20230907193218-d3ddc7976beb // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
