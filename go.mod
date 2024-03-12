@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.6
 
 require (
-	github.com/imroc/req/v3 v3.43.0
+	github.com/imroc/req/v3 v3.43.1
 	golang.org/x/net v0.22.0
 )
 
