@@ -5,7 +5,7 @@ go 1.22.0
 toolchain go1.23.1
 
 require (
-	github.com/imroc/req/v3 v3.44.0
+	github.com/imroc/req/v3 v3.45.0
 	golang.org/x/net v0.29.0
 )
 
@@ -18,8 +18,8 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
 	github.com/onsi/ginkgo/v2 v2.20.2 // indirect
-	github.com/quic-go/qpack v0.4.0 // indirect
-	github.com/quic-go/quic-go v0.46.0 // indirect
+	github.com/quic-go/qpack v0.5.1 // indirect
+	github.com/quic-go/quic-go v0.47.0 // indirect
 	github.com/refraction-networking/utls v1.6.7 // indirect
 	go.uber.org/mock v0.4.0 // indirect
 	golang.org/x/crypto v0.27.0 // indirect
