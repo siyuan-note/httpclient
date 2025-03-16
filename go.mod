@@ -13,7 +13,7 @@ require (
 	github.com/andybalholm/brotli v1.1.1 // indirect
 	github.com/cloudflare/circl v1.6.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/google/pprof v0.0.0-20250302191652-9094ed2288e7 // indirect
+	github.com/google/pprof v0.0.0-20250315033105-103756e64e1d // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
