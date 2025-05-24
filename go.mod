@@ -5,7 +5,7 @@ go 1.24
 toolchain go1.24.1
 
 require (
-	github.com/imroc/req/v3 v3.52.0
+	github.com/imroc/req/v3 v3.52.1
 	golang.org/x/net v0.40.0
 )
 
@@ -20,7 +20,7 @@ require (
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/quic-go/qpack v0.5.1 // indirect
-	github.com/quic-go/quic-go v0.51.0 // indirect
+	github.com/quic-go/quic-go v0.52.0 // indirect
 	github.com/refraction-networking/utls v1.7.3 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
 	go.uber.org/mock v0.5.2 // indirect
