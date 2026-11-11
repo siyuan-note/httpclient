@@ -20,6 +20,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/imroc/req/v3"
@@ -175,5 +176,20 @@ func defaultTransportDialContext(dialer *net.Dialer) func(context.Context, strin
 func ProxyFromEnvironment(req *http.Request) (*url.URL, error) {
 	// 因为 http.ProxyFromEnvironment 为了优化性能所以会缓存结果
 	// 这里需要每次都重新从环境变量获取，以便实现不重启就能切换代理
-	return httpproxy.FromEnvironment().ProxyFunc()(req.URL)
+	config := httpproxy.FromEnvironment()
+	proxyURL, err := config.ProxyFunc()(req.URL)
+	if err != nil || proxyURL == nil {
+		return proxyURL, err
+	}
+
+	// <local> 匹配不含点的主机名，IP 地址仍由原有例外规则处理。
+	host := req.URL.Hostname()
+	if host != "" && !strings.ContainsAny(host, ".:") {
+		for _, entry := range strings.Split(config.NoProxy, ",") {
+			if strings.EqualFold(strings.TrimSpace(entry), "<local>") {
+				return nil, nil
+			}
+		}
+	}
+	return proxyURL, nil
 }
